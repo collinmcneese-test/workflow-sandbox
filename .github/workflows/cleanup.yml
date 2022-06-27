@@ -57,6 +57,7 @@ jobs:
       - run: npx node artifacts.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
   # cleanup-list:
   #   needs: consume_artifacts
   #   permissions:
