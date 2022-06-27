@@ -1,0 +1,32 @@
+name: artifacts
+
+on:
+  push:
+    branches: ['artifacts']
+
+jobs:
+  create_artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: generate files
+        run:  for i in {1..5}; do echo "testcontent${i}" > "testfile${i}"; done
+      - name: Create some artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-artifacts
+          path: |
+            **/testfile*
+
+  consume_artifacts:
+    needs: create_artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: download named artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: test-artifacts
+      - run: ls -l
