@@ -33,6 +33,8 @@ jobs:
 
   cleanup-list:
     needs: consume_artifacts
+    permissions:
+      actions: read
     runs-on: ubuntu-latest
     outputs:
       artifact-data: ${{ steps.get-workflow-artifacts.outputs.data }}
