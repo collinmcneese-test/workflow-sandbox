@@ -10,6 +10,7 @@ octokit.actions.listWorkflowRunArtifacts({
   run_id: workflowId
 }).then(response => {
   const artifacts = response.data.artifacts;
+  console.log('Processing artifacts: ', artifacts);
   artifacts.forEach(artifact => {
     console.log('Cleaning up artifact:', artifact.name);
 
