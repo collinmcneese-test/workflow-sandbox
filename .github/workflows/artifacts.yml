@@ -11,7 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: generate files
-        run:  for i in {1..5}; do echo "testcontent${i}"" > "testfile${i}"; done
+        run:  for i in {1..5}; do echo "testcontent${i}" > "testfile${i}"; done
       - name: Create some artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -20,6 +20,7 @@ jobs:
             **/testfile*
 
   consume_artifacts:
+    needs: create_artifacts
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
