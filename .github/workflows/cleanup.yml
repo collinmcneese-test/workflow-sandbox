@@ -8,6 +8,7 @@ on:
 
 jobs:
 
+  # Uses local artifact.js for cleanup actions
   # cleanup:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -34,8 +35,6 @@ jobs:
           route: GET /repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/artifacts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "${{ steps.get-workflow-artifacts.outputs.data }}"
-      - run: echo "${{ fromJson(steps.get-workflow-artifacts.outputs.data).artifacts }}"
 
   cleanup:
     runs-on: ubuntu-latest
