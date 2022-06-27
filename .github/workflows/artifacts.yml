@@ -37,7 +37,7 @@ jobs:
     outputs:
       artifact-data: ${{ steps.get-workflow-artifacts.outputs.data }}
     steps:
-      - uses: octokit/request-action@v2.x
+      - uses: octokit/request-action@v2.1.4
         id: get-workflow-artifacts
         with:
           route: GET /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts
@@ -53,7 +53,7 @@ jobs:
       matrix:
         artifact: ${{ fromJson(needs.cleanup-list.outputs.artifact-data).artifacts }}
     steps:
-      - uses: octokit/request-action@v2.x
+      - uses: octokit/request-action@v2.1.4
         name: cleanup artifact
         with:
           route: DELETE /repos/{owner}/{repo}/actions/artifacts/{artifact_id}
