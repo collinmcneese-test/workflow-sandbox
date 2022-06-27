@@ -46,6 +46,7 @@ jobs:
           run_id: ${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo ${{ steps.get-workflow-artifacts.outputs.data }}
 
   cleanup:
     runs-on: ubuntu-latest
