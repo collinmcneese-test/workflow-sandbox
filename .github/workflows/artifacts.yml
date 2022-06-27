@@ -31,36 +31,15 @@ jobs:
           name: test-artifacts
       - run: ls -l
 
-  cleanup-list:
-    needs: consume_artifacts
-    permissions:
-      actions: read
-    runs-on: ubuntu-latest
-    outputs:
-      artifact-data: ${{ steps.get-workflow-artifacts.outputs.data }}
-    steps:
-      - uses: octokit/request-action@v2.1.4
-        id: get-workflow-artifacts
-        with:
-          route: GET /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "${{ steps.get-workflow-artifacts.outputs.data }}"
-      - run: echo "${{ fromJson(steps.get-workflow-artifacts.outputs.data).artifacts }}"
-
   cleanup:
     runs-on: ubuntu-latest
-    needs: cleanup-list
-    strategy:
-      matrix:
-        artifact: ${{ fromJson(needs.cleanup-list.outputs.artifact-data).artifacts }}
+    needs: consume_artifacts
     steps:
-      - uses: octokit/request-action@v2.1.4
-        name: cleanup artifact
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          route: DELETE /repos/{owner}/{repo}/actions/artifacts/{artifact_id}
-          owner: collinmcneese-test
-          repo: workflow-sandbox
-          artifact_id: ${{ matrix.artifact.id }}
+          version: 16
+      - run: npm install @octokit/action
+      - run: npx node artifact.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

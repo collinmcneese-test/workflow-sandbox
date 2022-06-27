@@ -1,0 +1,14 @@
+{
+  "name": "octokit_scrap",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Collin McNeese <collinmcneese@github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/action": "^3.18.1"
+  }
+}
