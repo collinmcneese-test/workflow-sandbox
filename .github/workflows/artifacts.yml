@@ -52,7 +52,7 @@ jobs:
     needs: cleanup-list
     strategy:
       matrix:
-        artifact: ${{ fromJson(needs.cleanup-list.outputs.artifact-data).id }}
+        artifact: ${{ fromJson(needs.cleanup-list.outputs.artifact-data).artifacts }}
     steps:
       - uses: octokit/request-action@v2.x
         name: cleanup artifact
@@ -60,6 +60,6 @@ jobs:
           route: DELETE /repos/{owner}/{repo}/actions/artifacts/{artifact_id}
           owner: collinmcneese-test
           repo: workflow-sandbox
-          artifact_id: ${{ matrix.artifact }}
+          artifact_id: ${{ matrix.artifact.id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
