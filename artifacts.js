@@ -9,7 +9,7 @@ octokit.actions.listWorkflowRunArtifacts({
   repo,
   run_id: workflowId,
 }).then(response => {
-  const artifacts = response.data.artifacts;
+  let artifacts = response.data.artifacts;
 
   console.log('Processing artifacts: ', artifacts);
 
