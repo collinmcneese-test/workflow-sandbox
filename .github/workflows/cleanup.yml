@@ -7,21 +7,6 @@ on:
       - completed
 
 jobs:
-
-  # Uses local artifact.js for cleanup actions
-  # cleanup:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         version: 16
-  #     - run: npm install @octokit/action
-  #     - run: npx node artifacts.js
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         RUN_ID: ${{ github.event.workflow_run.id }}
-
   cleanup-list:
     permissions:
       actions: read
